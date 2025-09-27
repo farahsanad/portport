@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farah Sanad — Data Analyst Portfolio</title>
+  <meta name="description" content="Data Analyst portfolio: Python insights, SQL, and interactive dashboards (Power BI & Excel)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f7f9;
+      --surface:#ffffff;
+      --ink:#0a0a0a;
+      --muted:#575757;
+      --pink:#f7cfe1;
+      --pink-strong:#f3a6c7;
+      --border:#e6e6ea;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(10,10,10,.06);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,Segoe UI,Roboto,Arial; line-height:1.6}
+    .container{width:min(1100px,92%); margin-inline:auto}
+
+    /* NAV */
+    nav{position:sticky; top:0; z-index:40; backdrop-filter:saturate(140%) blur(8px); background:rgba(255,255,255,.7); border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex; justify-content:space-between; align-items:center; padding:12px 0}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800}
+    .brand .dot{width:10px; height:10px; border-radius:999px; background:var(--pink-strong); display:inline-block}
+    .nav-links{display:flex; gap:18px}
+    .nav-links a{color:var(--ink); text-decoration:none; padding:8px 12px; border-radius:999px}
+    .nav-links a:hover{background:var(--pink);}    
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink); cursor:pointer; text-decoration:none}
+    .btn:hover{border-color:var(--pink-strong)}
+    .btn.primary{background:var(--pink); border-color:var(--pink-strong)}
+
+    /* HERO */
+    header.hero{padding:64px 0 28px; display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center}
+    .hero h1{margin:0 0 8px; font-size:clamp(28px,4vw,44px)}
+    .hero p{margin:0 0 16px; color:var(--muted)}
+    .hero-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow)}
+    .tags{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 20px}
+    .tag{background:var(--pink); padding:6px 10px; border-radius:999px; font-size:14px}
+
+    /* Sections */
+    section{padding:36px 0}
+    .section-title{font-size:26px; margin:0 0 8px}
+    .section-sub{color:var(--muted); margin:0 0 18px}
+
+    /* Cards/Grid */
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .card{background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column}
+    .thumb{aspect-ratio:16/9; background:#fdebf3; display:grid; place-items:center}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+    .card .body{padding:14px}
+    .card h3{margin:0 0 8px; font-size:18px}
+    .badge{border:1px solid var(--border); border-radius:999px; padding:4px 8px; font-size:12px; margin-inline-end:6px}
+    .actions{display:flex; gap:8px; margin-top:auto; padding:0 14px 14px}
+    .actions a{flex:1; text-align:center}
+
+    /* Insight filter/search */
+    .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px}
+    .search{flex:1; min-width:220px; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--surface)}
+
+    /* Modal */
+    .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(10,10,10,.5)}
+    .sheet{width:min(900px,92%); max-height:85vh; overflow:auto; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
+    .sheet .top{display:flex; align-items:center; justify-content:space-between}
+    .close{border:none; background:transparent; font-size:26px; cursor:pointer}
+
+    /* Contact */
+    form{display:grid; gap:12px}
+    input, textarea{padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--surface)}
+    footer{padding:36px 0; color:var(--muted); text-align:center}
+
+    /* Responsive */
+    @media (max-width:900px){
+      header.hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+    .noimg{display:grid;place-items:center;min-height:160px;background:#fdebf3;color:#777;text-align:center;padding:10px;border-top:1px solid var(--border)}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand"><span class="dot"></span> Farah Sanad — Data Analyst</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#insights">Insights</a>
+        <a href="#dashboards">Dashboards</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="#" id="printCV">Print CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO / HOME -->
+  <header id="home" class="hero container">
+    <div>
+      <h1>Turning data into clear, actionable stories</h1>
+      <p>Hi, I'm <strong>Farah Sanad</strong> — a data analyst focused on Python, SQL, and business reporting. I clean, analyze, and visualize data to help teams make better decisions. Below is a selection of my <em>Python insights</em> and <em>interactive dashboards</em>.</p>
+    </div>
+    <div class="hero-card">
+      <strong>Quick facts</strong>
+      <ul>
+        <li>Hands-on with EDA, feature engineering, and KPI design.</li>
+        <li>Comfortable moving between Python notebooks and BI tools.</li>
+        <li>Domains: retail, HR analytics, healthcare.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Excel</span>
+        <span class="tag">Visualization</span>
+      </div>
+      <a class="btn primary" href="#insights">View my work</a>
+    </div>
+  </header>
+
+  <!-- INSIGHTS (Python) -->
+  <section id="insights" class="container">
+    <h2 class="section-title">Insights (Python)</h2>
+    <p class="section-sub">Exploratory analyses and models. Use the search box to filter by keywords.</p>
+    <div class="toolbar">
+      <input id="searchInsights" class="search" type="search" placeholder="Search insights… e.g., titanic, regression, SQL" />
+    </div>
+    <div id="insightsGrid" class="grid"></div>
+  </section>
+
+  <!-- DASHBOARDS -->
+  <section id="dashboards" class="container">
+    <h2 class="section-title">Dashboards</h2>
+    <p class="section-sub">Interactive reports built in Power BI and Excel.</p>
+    <div id="dashGrid" class="grid"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-sub">
+      Happy to collaborate on data analysis or training.  
+      You can also email me directly at  
+      <a href="mailto:fara7red4@gmail.com">fara7red4@gmail.com</a>.
+    </p>
+    <form id="contactForm" novalidate>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+      <textarea id="message" rows="5" placeholder="Your message" required></textarea>
+      <label style="font-size:14px; color:var(--muted)"><input type="checkbox" id="consent" required> I agree to be contacted about this inquiry.</label>
+      <button class="btn" type="submit">Send</button>
+      <p id="formMsg" style="font-size:14px; color:var(--muted)"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Farah Sanad — All rights reserved. · 
+      <a href="mailto:fara7red4@gmail.com">fara7red4@gmail.com</a>
+    </div>
+  </footer>
+
+  <!-- Hidden iframe for CV printing -->
+  <iframe id="cvFrame" src="./assets/CV.pdf" style="display:none" title="CV"></iframe>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="sheet">
+      <div class="top">
+        <h3 id="modalTitle" style="margin:0"></h3>
+        <button class="close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <p id="modalDesc" class="section-sub" style="margin-top:8px"></p>
+      <div id="modalContent"></div>
+      <div class="actions" style="margin-top:12px">
+        <a id="modalRepo" class="btn" target="_blank" rel="noopener">GitHub</a>
+        <a id="modalLive" class="btn primary" target="_blank" rel="noopener">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Data ----------
+    const INSIGHTS = [
+      {
+        id: 'titanic',
+        title: 'Titanic Passenger Survival Analysis',
+        tools: ['Python','Pandas','Seaborn','Matplotlib'],
+        description: 'Survival by gender, class, and fare with visual EDA.',
+        thumb: './assets/titanic-class.png',
+        repo: 'https://github.com/farahsanad/Titanic-analysis',
+        details: `
+          <ul>
+            <li>Compared survival rate by <b>class</b> and <b>gender</b>.</li>
+            <li>Explored <b>fare</b> vs <b>age</b> scatter and correlation heatmap.</li>
+            <li>Clear gap: females and higher classes had significantly higher survival.</li>
+          </ul>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+            <img alt="by class" src="./assets/titanic-class.png"/>
+            <img alt="by gender" src="./assets/titanic-gender.png"/>
+            <img alt="fare vs age" src="./assets/titanic-age-fare.png"/>
+            <img alt="corr" src="./assets/titanic-corr.png"/>
+          </div>`
+      },
+      {
+        id: 'meteorites',
+        title: 'Meteorite Mass Prediction',
+        tools: ['Python','EDA','Regression'],
+        description: 'Exploratory analysis and modeling to predict meteorite mass.',
+        thumb: './assets/meteorites-top-classes.jpg',
+        repo: '',
+        details: `
+          <ul>
+            <li>Feature engineering from fall type, class, year and coordinates.</li>
+            <li>Visual EDA (top classes, correlation matrix, geo scatter).</li>
+          </ul>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+            <img alt="corr" src="./assets/meteorite-corr.jpg"/>
+            <img alt="top classes" src="./assets/meteorites-top-classes.jpg"/>
+            <img alt="avg mass" src="./assets/meteorites-avg-mass-by-fall.jpg"/>
+            <img alt="pred vs actual" src="./assets/meteorites-actual-vs-pred.jpg"/>
+            <img alt="map" src="./assets/meteorites-map.jpg"/>
+          </div>`
+      },
+      {
+        id: 'northwind',
+        title: 'Northwind: SQL + Python Data Pull',
+        tools: ['SQL','SQLAlchemy','Pandas'],
+        description: 'Complex joins across Orders, Order Details, Customers, Employees and Products. First-look EDA in pandas.',
+        thumb: './assets/northwind-sql.png',
+        repo: '',
+        details: `<pre><code>SELECT o.OrderID, o.OrderDate, c.CompanyName, e.FirstName || ' ' || e.LastName AS Employee, p.ProductName, od.Quantity, od.UnitPrice, (od.Quantity*od.UnitPrice) AS Total
+FROM Orders o
+JOIN [Order Details] od ON o.OrderID=od.OrderID
+JOIN Customers c ON o.CustomerID=c.CustomerID
+JOIN Employees e ON o.EmployeeID=e.EmployeeID
+JOIN Products p ON od.ProductID=p.ProductID;
+</code></pre>`
+      }
+    ];
+
+    const DASHBOARDS = [
+      { id:'hr-bi', title:'HR Analysis Dashboard', tool:'Power BI', thumb:'./assets/hr-bi-1.png', live:'', details:`KPIs (Age, HourlyRate), attrition by gender/age, income by job role.` },
+      { id:'hr-excel', title:'HR Dashboard', tool:'Excel', thumb:'./assets/hr-excel-1.png', live:'', details:`Average monthly rate, tenure, department headcount, satisfaction trends.` },
+      { id:'patient-bi', title:'Patient Dashboard', tool:'Power BI', thumb:'./assets/patient-bi-1.png', live:'', details:`Blood type distribution, test results, admission type, and gender insights.` },
+    ];
+
+    // ---------- Render helpers ----------
+    const insightsGrid = document.getElementById('insightsGrid');
+    const dashGrid = document.getElementById('dashGrid');
+    const searchInsights = document.getElementById('searchInsights');
+
+    function card(item, type){
+      const el = document.createElement('article'); el.className = 'card';
+      el.innerHTML = `
+        <div class="thumb">${item.thumb ? `<img src="${item.thumb}" alt="${item.title}">` : ''}</div>
+        <div class="body">
+          <h3>${item.title}</h3>
+          <p class="section-sub" style="margin:0 0 8px">${item.description || item.details || ''}</p>
+          <div>${(item.tools||[]).map(t=>`<span class='badge'>${t}</span>`).join('')}</div>
+        </div>
+        <div class="actions">
+          ${item.repo? `<a class="btn" href="${item.repo}" target="_blank" rel="noopener">GitHub</a>`:''}
+          <a class="btn primary more" href="#" data-id="${item.id}" data-type="${type}">Details</a>
+        </div>`;
+      el.querySelector('.more').addEventListener('click', (e)=>{ e.preventDefault(); openModal(item); });
+      return el;
+    }
+
+    function renderInsights(){
+      const q = (searchInsights.value||'').toLowerCase();
+      insightsGrid.innerHTML = '';
+      INSIGHTS.filter(it=> (it.title + ' ' + (it.description||'') + ' ' + (it.tools||[]).join(' ')).toLowerCase().includes(q))
+              .forEach(it=> insightsGrid.appendChild(card(it,'insight')));
+      if(!insightsGrid.childElementCount){ insightsGrid.innerHTML = '<div class="card" style="grid-column:1/-1; padding:22px">No insights found.</div>'; }
+    }
+
+    function renderDashboards(){
+      dashGrid.innerHTML = '';
+      DASHBOARDS.forEach(it=> dashGrid.appendChild(card(it,'dashboard')));
+    }
+
+    // ---------- Modal ----------
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc  = document.getElementById('modalDesc');
+    const modalContent = document.getElementById('modalContent');
+    const modalRepo = document.getElementById('modalRepo');
+    const modalLive = document.getElementById('modalLive');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(item){
+      modalTitle.textContent = item.title;
+      modalDesc.textContent = item.description || '';
+      modalContent.innerHTML = item.details || '';
+      modalRepo.style.display = item.repo ? 'inline-flex' : 'none';
+      if(item.repo) modalRepo.href = item.repo;
+      modalLive.style.display = item.live ? 'inline-flex' : 'none';
+      if(item.live) modalLive.href = item.live;
+      modal.style.display = 'grid'; modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+    // ---------- CV print ----------
+    document.getElementById('printCV').addEventListener('click', (e)=>{
+      e.preventDefault();
+      try{
+        const frame = document.getElementById('cvFrame');
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+      }catch(err){
+        window.open('./assets/CV.pdf','_blank');
+      }
+    });
+
+    // ---------- Contact form (front-end) ----------
+    const form = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const ok = document.getElementById('name').value && document.getElementById('email').value && document.getElementById('message').value && document.getElementById('consent').checked;
+      formMsg.style.color = ok ? '#228b22' : '#b45309';
+      formMsg.textContent = ok ? 'Sent (demo). You can connect this form later to Netlify Forms or Apps Script.' : 'Please fill all fields and accept the consent.';
+      if(ok) form.reset();
+    });
+
+    // ---------- Image fallback ----------
+    window.addEventListener('error', (e)=>{
+      const el = e.target;
+      if(el && el.tagName === 'IMG'){
+        const parent = el.parentElement;
+        const src = el.getAttribute('src')||'';
+        parent.innerHTML = `<div class="noimg">Image not found<br><small>${src}</small></div>`;
+      }
+    }, true);
+
+    // ---------- Init ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+    searchInsights.addEventListener('input', renderInsights);
+    renderInsights();
+    renderDashboards();
+  </script>
+</body>
+</html>
